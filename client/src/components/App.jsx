@@ -12,7 +12,6 @@ class App extends React.Component {
     super(props);
     this.state = {currentProductId: '',
                   rating: 0,
-                  reviews: [],
                   totalReviews: 0,
                   currentProduct: {}, //contains product name, category
                   defaultStyle: {},//contains price info(original_price, sale_price, thumbnail) //
@@ -22,24 +21,21 @@ class App extends React.Component {
     this.handleProductIdChange.bind(this);
   }
 
-    componentDidMount() {
+  componentDidMount() {
     var productId = '71697';
-    var count = 500;
     var promises = [axios.get(`/reviews/meta/${productId}`),
-                    axios.get(`/reviews/${productId}/${count}`),
                     axios.get(`/products/${productId}/styles`),
                     axios.get(`/products/${productId}`)];
     Promise.all(promises)
       .then(responseArr => {
         var reviewsAndRating = totalReviewsAndAvgRating(responseArr[0].data.ratings);
-        console.log('totalReviews - test', responseArr[1].data.results.length);
         this.setState({rating: reviewsAndRating[1],
-                       reviews: responseArr[1].data.results,
-                       totalReviews: responseArr[1].data.results.length,
+                       totalReviews: reviewsAndRating[0],
                        currentProductId: productId,
-                       currentProduct: responseArr[3].data,
-                       styles: responseArr[2].data.results});
-                       defaultStyle: responseArr[2].data.results.find(style => style["default?"])});
+                       currentProduct: responseArr[2].data,
+                       defaultStyle: responseArr[1].data.results.find(style => style["default?"]),
+                       styles: responseArr[1].data.results});
+
       })
       .catch(err => console.error(err))
   }
@@ -63,7 +59,7 @@ class App extends React.Component {
         <Overview productId={this.state.currentProductId} currentProduct={this.state.currentProduct} styles={this.state.styles} handleProductIdChange={this.handleProductIdChange} rating={this.state.rating} totalReviews={this.state.totalReviews} handleOverviewBackground={this.handleOverviewBackground.bind(this)}/>
         <RPList productId={this.state.currentProductId}/>
         <YourOutfit productId={this.state.currentProductId} prodRating={this.state.rating}/>
-        <Ratings_Reviews productId={this.state.currentProductId} handleProductIdChange={this.handleProductIdChange} rating={this.state.rating} totalReviews={this.state.totalReviews} reviews={this.state.reviews}/>
+        <Ratings_Reviews productId={this.state.currentProductId} handleProductIdChange={this.handleProductIdChange} rating={this.state.rating} totalReviews={this.state.totalReviews}/>
         <Questions_Answers productId={this.state.currentProductId} />
       </div>
     )
