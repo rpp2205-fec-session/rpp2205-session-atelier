@@ -32,7 +32,7 @@ class Stars extends React.Component {
       } else if (dec > 0.625 && dec <= 0.875) {
         newArr[index] = 0.7; //70% fill looks like 3/4 fill
       } else {
-        if (rating === 4) {
+        if (dec === 0 && rating !== 5) {
           newArr[index] = 0;
         } else {
           newArr[index] = 1;
