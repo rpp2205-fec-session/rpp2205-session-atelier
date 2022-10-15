@@ -4,6 +4,7 @@ import Answer from './Answer.jsx';
 class Answers extends React.Component {
   constructor(props) {
     super(props);
+    console.log('props: ', props)
 
     this.state = {
       viewAllAnswersForFirstQuestion: false,
@@ -16,6 +17,7 @@ class Answers extends React.Component {
   }
 
   sortAnswers(callback, index) {
+    console.log(this.props)
     let results = this.props[index]
     .filter(callback)
     .sort((a, b) => {
@@ -39,9 +41,6 @@ class Answers extends React.Component {
   }
 
   handleViewMoreAnswers(index) {
-    // load the rest of answers
-    // change text to "Collapse answers"
-    // Make the full list of answers scrollable
     if (index === 'viewAllAnswersForFirstQuestion') {
       this.setState({
         viewAllAnswersForFirstQuestion: !this.state[index]

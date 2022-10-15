@@ -13,29 +13,94 @@ import Answers from './Answers.jsx';
 import Question from './Question.jsx';
 
 
-describe('Questions_Answers component rendering', function() {
+describe('Questions_Answers component', function() {
   test("should check whether an element rendered or not", function() {
     render(<Questions_Answers />);
     expect(screen.getByText('Add Question')).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Add Question'})).toBeInTheDocument();
     expect(screen.queryByText('button', {name: 'hello'})).toBeNull();
   });
+});
+
+describe('Answers component', function() {
+  let mockData = [
+    {
+      answer_id: 5988494,
+      answerer_name: "keren",
+      body: "where are all the previous questions and answers?",
+      date: "2022-09-13T00:00:00.000Z",
+      helpfulness: 13,
+      photos: []
+    },
+    {
+      answer_id: 5988579,
+      answerer_name: "Seller",
+      body: "bUy My sTuFf",
+      date: "2022-09-17T00:00:00.000Z",
+      helpfulness: 4,
+      photos: []
+    },
+    {
+      answer_id: 5988671,
+      answerer_name: "rpp2205",
+      body: "Alex will buy this for everyone!",
+      date: "2022-10-15T00:00:00.000Z",
+      helpfulness: 2,
+      photos: []
+    }
+  ];
+
+  test("should sort answers by seller", function() {
+    render(<Answers answers={mockData} />);
+    let answersInstance = new Answers();
+    let expected = [
+      {
+        answer_id: 5988579,
+        answerer_name: "Seller",
+        body: "bUy My sTuFf",
+        date: "2022-09-17T00:00:00.000Z",
+        helpfulness: 4,
+        photos: []
+      },
+      {
+        answer_id: 5988494,
+        answerer_name: "keren",
+        body: "where are all the previous questions and answers?",
+        date: "2022-09-13T00:00:00.000Z",
+        helpfulness: 13,
+        photos: []
+      },
+      {
+        answer_id: 5988671,
+        answerer_name: "rpp2205",
+        body: "Alex will buy this for everyone!",
+        date: "2022-10-15T00:00:00.000Z",
+        helpfulness: 2,
+        photos: []
+      }
+    ];
+
+    expect(answersInstance.sortBySeller('allAnswersForFirstQuestion'));
+  });
+  test("should sort answers by the count of helpfulness if there are no answers from sellers", function() {
+
+  });
+  test("should handle view more answers", function() {
+
+  })
 })
 
-describe('Answer.jsx', function() {
+describe('Answer component', function() {
   let mockData = {
     answer_id: 5988579,
     answerer_name: "Seller",
     body: "bUy My sTuFf",
-    date: "2022-09-17T00:00:00.000Z",
+    date: "2022-09-16T00:00:00.000Z",
     helpfulness: 4,
     photos: []
   };
   test("should return formatted date", function() {
-    render(<Answer answer={mockData} />)
-    // let answerInstance = new Answer();
-    // let date = '2022-09-17T00:00:00.000Z';
-    // expect(screen.).toEqual('September 17, 2022');
+
   });
   test("should handle the handleReport function correctly", async function() {
     render(<Answer answer={mockData} />);

@@ -31,10 +31,11 @@ class Answer extends React.Component {
   }
 
   handleDateFormat(date) {
+    console.log('date: ', date)
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     let d = new Date(date);
-    let day = d.getDate();
+    let day = d.getDate() + 1;
     let month = monthNames[d.getMonth()];
     let year = d.getFullYear();
     return `${month} ${day}, ${year}`;
@@ -49,7 +50,7 @@ class Answer extends React.Component {
         <div className="answer_sub">
           <div className="by">by</div>
           <span className={answerer_name === "Seller" ? 'seller' : 'answerer'}>{answerer_name === "Seller" ? "Seller" : answerer_name}</span>
-          <div className="answer_date">{this.handleDateFormat(date)}</div>
+          <div role="answer_date" className="answer_date">{this.handleDateFormat(date)}</div>
           <div>|</div>
           <div className="helpful_text">Helpful?</div>
           <button className="yes_button"
