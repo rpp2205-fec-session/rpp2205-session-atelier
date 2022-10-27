@@ -2,7 +2,7 @@ import React from 'react';
 
 const MagnifyingArea = (props) => {
   return (<>
-    <figure id="magnifying-area" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+    <figure data-testid="test-MagnigyingArea" id="magnifying-area" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
       <img id="current-photo-modal" src={props.url} style={{"cursor": "crosshair"}}/>
     </figure>
   </>)

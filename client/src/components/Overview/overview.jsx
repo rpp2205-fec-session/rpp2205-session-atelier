@@ -46,8 +46,8 @@ class Overview extends React.Component {
     if (this.state.styleObj.photos === undefined) {
       return null;
     } else {
-      return (<div className="overview-container">
-          <ImageGallary section = "overview" currentPhotoIndex={this.state.currentPhotoIndex} handleCurrentPhotoChange={this.handleCurrentPhotoChange.bind(this)} photos={this.state.styleObj.photos} handleModalAppear={this.handleModalAppear.bind(this)} handleBackground={this.props.handleOverviewBackground}/>
+      return (<div className="overview-container" data-testid="test-Overview">
+          <ImageGallary section="overview" currentPhotoIndex={this.state.currentPhotoIndex} handleCurrentPhotoChange={this.handleCurrentPhotoChange.bind(this)} photos={this.state.styleObj.photos} handleModalAppear={this.handleModalAppear.bind(this)} handleBackground={this.props.handleOverviewBackground}/>
       <div className="overview">
           <ProductInfo productId={this.props.productId} currentProduct={this.props.currentProduct} styleObj={this.state.styleObj} rating={this.props.rating}
           totalReviews={this.props.totalReviews} priceInfo={this.state.priceInfo} />

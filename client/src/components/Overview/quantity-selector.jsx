@@ -8,7 +8,7 @@ class QuantitySelector extends React.Component {
 
   render() {
     return (
-      <div className="quantity-selector">
+      <div className="quantity-selector" data-testid="test-QuantitySelector">
         <label htmlFor="quantity"></label>
         <select name="quantity" id="quantity" style={this.props.borderStyle} onChange={this.props.handleQuantitySelect}>
        {/* {this.props.quantity === 0 ? (<option key="defaultQuantityOption">Select Quantity</option>) : null} */}

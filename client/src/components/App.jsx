@@ -115,11 +115,11 @@ class App extends React.Component {
       return null;
     }
     return (
-      <div style={{"backgroundColor": this.state.background}}>
+      <div style={{"backgroundColor": this.state.background}} data-testid="test-App">
         <ErrorBoundary>
           <TopBar />
           </ErrorBoundary>
-          <Overview productId={this.state.currentProductId} currentProduct={this.state.currentProduct} styles={this.state.styles} handleProductIdChange={this.handleProductIdChange} defaultStyle={this.state.defaultStyle} rating={this.state.rating} totalReviews={this.state.totalReviews} handleOverviewBackground={this.handleOverviewBackground.bind(this)}/>
+          <Overview productId={this.state.currentProductId} currentProduct={this.state.currentProduct} styles={this.state.styles} handleProductIdChange={this.handleProductIdChange} defaultStyle={this.state.defaultStyle} rating={this.state.rating} totalReviews={this.state.totalReviews} handleOverviewBackground={this.handleOverviewBackground.bind(this)} addProduct={this.addProduct.bind(this)}/>
           <RPList productId={this.state.currentProductId} relatedProds={this.state.related} changeProduct={this.handleProductIdChange.bind(this)}/>
           {/* {this.state.carousel.map((element) => {
             return(
