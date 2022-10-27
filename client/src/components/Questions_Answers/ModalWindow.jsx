@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import withClickData from '../hoc_click_data.jsx';
-import config from './config.js';
 
 const ModalWindow = (props) => {
   const [answer, setAnswer] = useState('');
@@ -11,23 +10,15 @@ const ModalWindow = (props) => {
   const [email, setEmail] = useState('');
   const [isEmailValidated, setIsEmailValidated] = useState(false);
   const [hasError, setHasError] = useState(true);
-  const [uploadedImagesUrl, setUploadedImagesUrl] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [file, setFile] = useState(null);
+  const [fileDataURL, setFileDataURL] = useState(null);
   const [uploadCounts, setUploadCounts] = useState(0);
 
-  const handleUploadPhotos = (files) => {
-    let formData = new FormData();
-    formData.append('file', files[0]);
-    formData.append('upload_preset', config.CLOUD_PRESET);
-
-    axios.post(`https://api.cloudinary.com/v1_1/${config.CLOUD_NAME}/image/upload`, formData)
-    .then(response => {
-      let url = response.data.secure_url;
-      setUploadedImagesUrl(uploadedImagesUrl.concat(url));
-      setUploadCounts(uploadCounts + 1);
-    })
-    .catch(err => {
-      console.log('failed to upload the image');
-    })
+  const handleUploadPhotos = (e) => {
+    const currentFile = e.target.files[0];
+    console.log('currentFile: ', currentFile)
+    setFile(currentFile);
   }
 
   const handleAnswerChange = (value) => {
@@ -50,48 +41,75 @@ const ModalWindow = (props) => {
     );
   }
 
-  const validateUserInput = () => {
+  const validateUserInput = (e) => {
     let isAnswerValid = answer.length !== 0;
     let isQuestionValid = question.length !== 0;
     let isNicknameValid = nickname.length !== 0;
     let isEmailValid = email.length !== 0 && validateEmail(email) !== null;
     let totalValid = (isAnswerValid || isQuestionValid) && isNicknameValid && isEmailValid;
 
-    return totalValid
+    setIsEmailValidated(isEmailValid);
+    totalValid ? setHasError(false) : setHasError(true);
   }
 
-  const submitForm = (e) => {
-    props.interaction(e.target);
-    if (validateUserInput()) {
+  useEffect(() => {
+    if (!hasError) {
       if (answer.length !== 0) {
-        axios.post(`/qa/questions/${props.questionId}/answers`, {
-          body: answer,
-          name: nickname,
-          email: email,
-          photos: uploadedImagesUrl
-        })
-        .then(data => {
-          console.log('The form is sent to API successfully')
-        })
-        .catch(err => {
-          console.log('Failed to send the form')
-        })
+        submitForm('answer', e.target);
       } else {
-        axios.post(`qa/questions`, {
-          body: question,
-          name: nickname,
-          email: email,
-          product_id: props.productId
-        })
-        .then(data => {
-          console.log('The form is sent to API successfully');
-        })
-        .catch(err => {
-          console.log('Failed to send the form')
-        })
+        submitForm('question', e.target);
       }
+    } else {
+      console.log('error in the form')
+    }
+  }, [hasError]);
+
+  const submitForm = (type, target) => {
+    this.props.interaction(target);
+    if (type === 'answer') {
+      axios.post(`/qa/questions/${props.questionId}/answers`, {
+        body: answer,
+        name: nickname,
+        email: email,
+        photos: []
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log('err: ', err)
+      })
+    } else {
+      axios.post(`qa/questions`, {
+        body: question,
+        name: nickname,
+        email: email,
+        product_id: props.productId
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log('err: ', err)
+      })
     }
   }
+
+  useEffect(() => {
+    let fileReader, isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result);
+          setUploadedImages(uploadedImages.concat(result))
+          setUploadCounts(uploadCounts + 1);
+        }
+      }
+      fileReader.readAsDataURL(file);
+    }
+  }, [file]);
 
   const getInvalidFields = () => {
     let fields;
@@ -140,19 +158,20 @@ const ModalWindow = (props) => {
           name="email"
           placeholder="Example: jack@email.com"/>
         <p className="sub_text">For authentication reasons, you will not be emailed</p>
+        {fileDataURL ?
+          <p className="img-preview-wrapper">
+            {uploadedImages.map(img => <img className="upload_photos" key={img} src={img} alt="preview" />)}
+          </p> : null}
         {props.questionBody !== undefined && uploadCounts < 5 &&
           <div className="upload_button">
             <label className="upload_text">
-            <input type="file" onChange={(e) => handleUploadPhotos(e.target.files)} multiple/>Upload your photos
+            <input type="file" onChange={handleUploadPhotos} multiple/>Upload your photos
             </label>
           </div>
         }
-        {uploadedImagesUrl.map(url => (
-          <img key={url} src={url} className="upload_image"/>
-        ))}
         <button
           className="submit_button"
-          onClick={submitForm}>
+          onClick={validateUserInput}>
           {props.questionBody !== undefined ? 'Submit answer' : 'Submit question'}
         </button>
         {hasError ? <div className="sub_text">You must enter the following: {getInvalidFields().map(f => <li key={f}>{f}</li>)}</div> : <></>}

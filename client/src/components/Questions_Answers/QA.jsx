@@ -32,10 +32,7 @@ class QA extends React.Component {
     return axios.get(`/qa/questions/${questionId}/answers/${numberOfAnswers}`)
     .then(data => {
       return data.data.results
-    })
-    .catch(err => {
-      console.log('Failed to retrieve answers for the question');
-    })
+    });
   }
 
   sortAnswers(data) {

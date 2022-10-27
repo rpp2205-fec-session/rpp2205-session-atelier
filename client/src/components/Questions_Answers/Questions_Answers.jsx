@@ -34,13 +34,10 @@ class Questions_Answers extends React.Component {
   getAllQuestions() {
     return axios.get(`/qa/questions/${this.props.productId}`)
     .then(data => {
-      let sortedQAs = this.sortQuestionsByHelpfulness(data.data.results);
+      let sortedQAs = this.sortQuestionsByHelpfulness(data.data.results)
       this.setState({
         QAs: sortedQAs
       });
-    })
-    .catch(err => {
-      console.log('Failed to render questions for the product');
     })
   }
 
@@ -85,9 +82,6 @@ class Questions_Answers extends React.Component {
   }
 
   render() {
-    if (!this.props.productId || !this.props.productName) {
-      throw new Error('The product ID or product name is not specified');
-    }
     return (
       <div className="questions_answers">
         <h2 className="questions_answers_title">QUESTIONS & ANSWERS</h2>
