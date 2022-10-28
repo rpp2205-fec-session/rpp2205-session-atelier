@@ -3,6 +3,8 @@ const axios = require('axios');
 const fs = require('fs');
 const API_Link = `https://app-hrsei-api.herokuapp.com/api/fec2/${process.env.CAMPUS_CODE}`;
 const auth = {headers: {Authorization: process.env.access_token}};
+const multer = require('multer');
+const upload = multer();
 
 module.exports = {
 
@@ -236,18 +238,27 @@ module.exports = {
   },
 
   uploadPhotosHandler: (req, res) => {
-    let productId = req.params.product_id;
-    let question_id = req.params.question_id;
-    let image_name = req.params.image_name;
-    let rootDir = './atelier';
-    let productDir = productId;
-    let questionDir = question_id;
+    console.log('もう無理', req.body.data)
+    // var form = new formidable.IncomingForm();
+    // form.parse(req, (err, fields, files) => {
+    //   console.log('fields: ', fields)
+    // })
+    // console.log('form: ', form)
+    // let formData = new FormData();
+    // formData.append('file', req.body.file);
+    // formData.append('upload_preset', process.env.CLOUD_PRESET);
+    // let formData = req.body.formData;
+    let file = req.body.file;
+    //console.log('file in server: ', file)
+    let preset = process.env.CLOUD_PRESET;
 
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir)
-    } else {
-
-    }
+    axios.post(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {file, preset})
+    .then(response => {
+      console.log('response from cludinary: ', response)
+    })
+    .catch(err => {
+      console.log('error: ', err)
+    })
   }
 
 };

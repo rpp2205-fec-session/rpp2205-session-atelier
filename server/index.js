@@ -38,7 +38,7 @@ app.post('/qa/questions', postQuestionHandler)
 
 app.post('/qa/questions/:question_id/answers', postAnswerHandler)
 
-app.post('/upload/:product_id/:question_id/:image_name', uploadPhotosHandler);
+app.post('/uploadImages', uploadPhotosHandler);
 
 
 

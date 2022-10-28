@@ -4,6 +4,8 @@ import axios from 'axios';
 import withClickData from '../hoc_click_data.jsx';
 import config from './config.js';
 
+
+
 const ModalWindow = (props) => {
   const [answer, setAnswer] = useState('');
   const [question, setQuestion] = useState('');
@@ -15,11 +17,32 @@ const ModalWindow = (props) => {
   const [uploadCounts, setUploadCounts] = useState(0);
 
   const handleUploadPhotos = (files) => {
+    // let data = {
+    //   file: files[0]
+    // }
+    // console.log('files[0]', files[0].name)
     let formData = new FormData();
     formData.append('file', files[0]);
-    formData.append('upload_preset', config.CLOUD_PRESET);
 
-    axios.post(`https://api.cloudinary.com/v1_1/${config.CLOUD_NAME}/image/upload`, formData)
+    for(var pair of formData.entries()) {
+      console.log(pair[0]+', '+pair[1]);
+    }
+    // console.log('formData: ', formData)
+    // formData.append('upload_preset', config.CLOUD_PRESET);
+    // formData.append('upload_preset', config.CLOUD_PRESET);
+
+    // axios.post(`https://api.cloudinary.com/v1_1/${config.CLOUD_NAME}/image/upload`, formData)
+    axios.post('/uploadImages', {data: formData}, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    // axios({
+    //   method: "post",
+    //   url: "/uploadImages",
+    //   data: formData,
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // })
     .then(response => {
       let url = response.data.secure_url;
       setUploadedImagesUrl(uploadedImagesUrl.concat(url));

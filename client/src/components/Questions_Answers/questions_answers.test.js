@@ -12,7 +12,6 @@ import Answer from './Answer.jsx';
 import Answers from './Answers.jsx';
 import Question from './Question.jsx';
 
-
 describe('Questions_Answers component rendering', function() {
   test("should check whether an element rendered or not", function() {
     render(<Questions_Answers />);
