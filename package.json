@@ -11,7 +11,7 @@
     "test:related": "jest ./client/src/components/RelatedItems_Comparison/related-items.test.js --env=jsdom --detectOpenHandles ----coverage",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
+    "build:prod": "webpack --mode=production --node-env=production & nodemon ./server/index.js",
     "watch": "webpack --watch & nodemon ./server/index.js"
   },
   "jest": {
