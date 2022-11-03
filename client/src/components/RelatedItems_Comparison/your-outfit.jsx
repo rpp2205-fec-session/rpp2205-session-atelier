@@ -48,7 +48,11 @@ function YourOutfit (props) {
               <FontAwesomeIcon icon={faPlus} />
               <p>Add to Outfit</p>
             </div>
-            {arr}
+            {props.list.map((element, index) =>(
+               <RPC action={false} key={index} remove={props.removeProd}
+               info={JSON.parse(localStorage.getItem(element))} redirect={props.changeProduct}
+              />));
+            }
          </div>
         </div>
         {Next ?

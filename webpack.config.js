@@ -11,20 +11,24 @@ const stylesHandler = 'style-loader';
 const SRC_DIR = path.join(__dirname, './client/src');
 const DSC_DIR = path.join(__dirname, './client/dist');
 
+const ImageminWebP = require('imagemin-webp');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+
 const config = {
     entry: `${SRC_DIR}/index.jsx`,
     output: {
         path: DSC_DIR,
         filename: 'main.js'
     },
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         template: 'index.html',
-    //     }),
+    plugins: [
+        new ImageminPlugin({
+            // imagemin-webp docs: https://github.com/imagemin/imagemin-webp
+            plugins: [ImageminWebP({quality: 50})]
+          })
 
-    //     // Add your plugins here
-    //     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    // ],
+        // Add your plugins here
+        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    ],
     module: {
         rules: [
             {
