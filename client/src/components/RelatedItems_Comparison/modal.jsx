@@ -1,4 +1,3 @@
-import React from 'react';
 import withClickData from '../hoc_click_data.jsx';
 
 function Modal (props) {

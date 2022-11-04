@@ -1,4 +1,3 @@
-import React from 'react';
 import StyleEntry from './style-entry.jsx';
 import axios from 'axios';
 

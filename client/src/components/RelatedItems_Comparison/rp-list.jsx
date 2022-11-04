@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import RPC from './related-product-cards.jsx';
 import Modal from './modal.jsx';
 import axios from 'axios';

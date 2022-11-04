@@ -80,11 +80,9 @@ class Answer extends React.Component {
           <div className="helpfulness_number">({this.state.helpfulness})</div>
           {this.state.isReported ?
             <button disabled={this.state.isReported}
-              className="report_button"
-              role="report_button">Reported
+              className="report_button">Reported
             </button> :
             <button className="report_button"
-              role="report_button"
               onClick={this.handleReport}>Report
             </button>}
         </div>

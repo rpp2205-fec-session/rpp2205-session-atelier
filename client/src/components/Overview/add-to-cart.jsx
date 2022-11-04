@@ -1,4 +1,3 @@
-import React from 'react';
 import SizeSelector from './size-selector.jsx';
 import QuantitySelector from './quantity-selector.jsx';
 import AddToOutfit from './add-to-outfit.jsx';

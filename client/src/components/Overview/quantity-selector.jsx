@@ -1,4 +1,3 @@
-import React from 'react';
 import { QuantitySelectArr } from '../helperFunctions.jsx';
 
 class QuantitySelector extends React.Component {

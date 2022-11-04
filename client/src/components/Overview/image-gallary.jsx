@@ -1,4 +1,3 @@
-import React from 'react';
 import GallaryEntry from './gallary-entry.jsx';
 import MagnifyingArea from './magnifying-area.jsx';
 import withClickData from '../hoc_click_data.jsx';
@@ -75,7 +74,7 @@ class ImageGallary extends React.Component {
             {this.props.currentPhotoIndex === this.props.photos.length - 1 ? null : <div id="forwardBtn-modal" onClick={this.handleForward.bind(this)}>
             </div>}
             <div className="defaultBtn" onClick={this.handleClick.bind(this)}>
-              <img id="defaultBtn" src="img/exit-full-screen-icon.png" />
+              <img alt='img' id="defaultBtn" src="img/exit-full-screen-icon.png" />
             </div>
           </div>
           <div className="gallary-list-modal" >{this.props.photos.map((photo, index) => {
@@ -109,13 +108,13 @@ class ImageGallary extends React.Component {
         {arrowForwardNotNeeded ? null : <div className="arrow-down-container" onMouseOver={this.handleArrowDown.bind(this)}><div className="arrow-down"></div></div>}
         </div>
         <div className="current-photo">
-          <img id="current-photo" onClick={this.handleClick.bind(this)} style={{"cursor": "zoom-in"}} src={current_url}></img>
+          <img alt='img' id="current-photo" onClick={this.handleClick.bind(this)} style={{"cursor": "zoom-in"}} src={current_url}></img>
             {this.props.currentPhotoIndex === 0 ? null : <div id="backBtn" onClick={this.handleBackward.bind(this)}>
             </div>}
             {this.props.currentPhotoIndex ===  this.props.photos.length - 1 ? null : <div id="forwardBtn" onClick={this.handleForward.bind(this)}>
             </div>}
             <div className="expandBtn" onClick={this.handleClick.bind(this)}>
-              <img id="expandBtn" src="img/fullscreen-icon.jpg" />
+              <img alt='img' id="expandBtn" src="img/fullscreen-icon.jpg" />
             </div>
         </div>
       </div>)

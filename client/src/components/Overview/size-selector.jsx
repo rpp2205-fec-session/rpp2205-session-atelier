@@ -1,5 +1,3 @@
-import React from 'react';
-
 class SizeSelector extends React.Component {
   constructor(props) {
     super(props)

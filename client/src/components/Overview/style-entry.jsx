@@ -1,4 +1,3 @@
-import React from 'react';
 import withClickData from '../hoc_click_data.jsx';
 
 const highlightStyle = {"borderStyle": "solid", "color": "rgb(116, 196, 65)", "borderWidth": "2.5px"};
@@ -26,9 +25,9 @@ class StyleEntry extends React.Component {
     }
     return (
     <div className="styleThumbnails-parent">
-      <img className="styleThumbnails-check" src="img/check-icon.png" style={{"display": checkDisplay}}/>
+      <img alt='img' className="styleThumbnails-check" src="img/check-icon.png" style={{"display": checkDisplay}}/>
       <div className="styleThumbnails-container" style={this.props.highlight ? highlightStyle : nonHighlightStyl}>
-        <img className="styleThumbnails" id={"styleThumbnails" + this.props.id} src={style_url} onClick={this.handleClick.bind(this)} width="50px"></img>
+        <img alt='img' className="styleThumbnails" id={"styleThumbnails" + this.props.id} src={style_url} onClick={this.handleClick.bind(this)} width="50px"></img>
       </div>
     </div>
    )

@@ -1,4 +1,3 @@
-import React from 'react';
 import Stars from '../FiveStars.jsx';
 import axios from 'axios';
 

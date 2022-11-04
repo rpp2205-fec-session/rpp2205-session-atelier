@@ -1,4 +1,3 @@
-import React from 'react';
 import { RiCloseLine } from "react-icons/ri";
 import Stars from '../FiveStars.jsx';
 import axios from 'axios';
@@ -220,7 +219,7 @@ class Write_New_Review extends React.Component {
                       {this.state.assets.map(asset => {
                           return (
                             <div className="review_photo" key={asset.asset_id}>
-                              <img className="review_photo" src={asset.url}/>
+                              <img alt='img' className="review_photo" src={asset.url}/>
                             </div>
                           )
                         })

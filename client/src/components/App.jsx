@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 const Overview = React.lazy(() => import('./Overview/overview.jsx'));
 const Ratings_Reviews = React.lazy(() => import('./Ratings_Reviews/Ratings_Reviews.jsx'));
 import axios from 'axios';
-import { totalReviewsAndAvgRating } from './helperFunctions.jsx';
+import { totalRatingsAndAvgRating } from './helperFunctions.jsx';
 const Questions_Answers = React.lazy(() => import('./Questions_Answers/Questions_Answers.jsx'));
 const RPList = React.lazy(() => import('./RelatedItems_Comparison/rp-list.jsx'));
 const YourOutfit = React.lazy(() => import('./RelatedItems_Comparison/your-outfit.jsx'));
@@ -41,7 +41,7 @@ class App extends React.Component {
                     axios.get(`/products/${productId}/related`)];
     Promise.all(promises)
       .then(responseArr => {
-        var reviewsAndRating = totalReviewsAndAvgRating(responseArr[0].data.ratings);
+        var reviewsAndRating = totalRatingsAndAvgRating(responseArr[0].data.ratings);
         this.setState({rating: reviewsAndRating[1],
                        reviewsMeta: responseArr[0].data,
                        ratings: responseArr[0].data.ratings,

@@ -1,4 +1,3 @@
-import React from 'react';
 import ProductInfo from './product-info.jsx';
 import ImageGallary from './image-gallary.jsx';
 import StyleSelector from './style-selector.jsx';

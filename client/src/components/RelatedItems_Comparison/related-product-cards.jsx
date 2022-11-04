@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Stars from '../FiveStars.jsx';
 import Action from './action.jsx';
 import withClickData from '../hoc_click_data.jsx';
@@ -23,7 +23,7 @@ function RPC (props) {
         <Action info={props.info.product} prodName={props.info.product.name} actionButton={props.action} showModal={props.show} removeProd={props.remove}/>
         <div id={props.info.product.id} onClick={ (e) => {props.redirect(props.info.product.id); console.log(e.target.nodeName); props.interaction(e.target)}}>
           <p>
-            <img className="rpcThumbnails" src={photo}></img>
+            <img alt='img' className="rpcThumbnails" src={photo}></img>
           </p>
           <p>{props.info.product.category}</p>
           <p>{props.info.product.name}</p>
